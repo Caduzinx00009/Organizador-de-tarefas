@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Organizador de Tarefas</title>
+</head>
+<body>
+
+    <h1>Minha Lista de Tarefas</h1>
+
+    <input type="text" id="tarefa" placeholder="Digite uma tarefa">
+    <input type="date" id="prazo">
+    <button onclick="adicionarTarefa()">Adicionar</button>
+
+    <ul id="lista"></ul>
+
+    <script>
+        function adicionarTarefa() {
+            let tarefa = document.getElementById("tarefa").value;
+            let prazo = document.getElementById("prazo").value;
+            let lista = document.getElementById("lista");
+
+            if (tarefa.trim() === "") {
+                alert("Digite uma tarefa!");
+                return;
+            }
+
+            let item = document.createElement("li");
+
+            // Se não escolher prazo, mostra "sem prazo"
+            let textoPrazo = prazo ? prazo : "sem prazo";
+item.innerHTML = `
+    ${tarefa} — Prazo: ${textoPrazo}
+    <button onclick="marcarConcluido(this)">Concluir</button>
+`;
+            lista.appendChild(item);
+
+            document.getElementById("tarefa").value = "";
+            document.getElementById("prazo").value = "";
+        }
+        function marcarConcluido(botao) {
+    let item = botao.parentElement;
+    item.style.backgroundColor = "lightgreen";
+    botao.innerText = "Concluído";
+    botao.disabled = true;
+}
+    </script>
+    
+
+</body>
+</html>
