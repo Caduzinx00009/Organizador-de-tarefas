@@ -32,6 +32,7 @@
 item.innerHTML = `
     ${tarefa} — Prazo: ${textoPrazo}
     <button onclick="marcarConcluido(this)">Concluir</button>
+    <button onclick="excluirTarefa(this)">Excluir</button>
 `;
             lista.appendChild(item);
 
@@ -43,6 +44,10 @@ item.innerHTML = `
     item.style.backgroundColor = "lightgreen";
     botao.innerText = "Concluído";
     botao.disabled = true;
+}
+function excluirTarefa(botao) {
+    let item = botao.parentElement;
+    item.remove();
 }
     </script>
     
