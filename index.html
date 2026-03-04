@@ -7,6 +7,7 @@
 <body>
 
     <h1>Minha Lista de Tarefas</h1>
+    <p id="contador">Tarefas: 0</p>
 
     <input type="text" id="tarefa" placeholder="Digite uma tarefa">
     <input type="date" id="prazo">
@@ -35,7 +36,8 @@ item.innerHTML = `
     <button onclick="excluirTarefa(this)">Excluir</button>
 `;
             lista.appendChild(item);
-
+salvarTarefas();
+atualizarContador();
             document.getElementById("tarefa").value = "";
             document.getElementById("prazo").value = "";
         }
@@ -44,10 +46,32 @@ item.innerHTML = `
     item.style.backgroundColor = "lightgreen";
     botao.innerText = "Concluído";
     botao.disabled = true;
+    salvarTarefas();
 }
 function excluirTarefa(botao) {
     let item = botao.parentElement;
     item.remove();
+    salvarTarefas();
+    atualizarContador();
+}
+function salvarTarefas() {
+    localStorage.setItem("tarefas", document.getElementById("lista").innerHTML);
+}
+
+function carregarTarefas() {
+    let salvo = localStorage.getItem("tarefas");
+    if (salvo) {
+        document.getElementById("lista").innerHTML = salvo;
+        atualizarContador();
+    }
+}
+
+// carrega automaticamente quando abrir a página
+carregarTarefas();
+
+function atualizarContador() {
+    let quantidade = document.querySelectorAll("#lista li").length;
+    document.getElementById("contador").innerText = "Tarefas: " + quantidade;
 }
     </script>
     
